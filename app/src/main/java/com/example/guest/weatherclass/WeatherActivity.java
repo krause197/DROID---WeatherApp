@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -14,6 +18,10 @@ import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = WeatherActivity.class.getSimpleName();
+    @Bind(R.id.locationTextView) TextView mLocationTextView;
+    @Bind(R.id.listView) ListView mListView;
+
+    public ArrayList<Weather> mWeathers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +46,17 @@ public class WeatherActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                mWeathers = weatherService.processResults(response);
+
+                WeatherActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (Weather weather : mWeathers) {
+                            Log.d(TAG, "Name: " + weather.getName());
+                            Log.d(TAG, "Description: " + weather.getDescription());
+                        }
+                    }
+                });
             }
 
         });
