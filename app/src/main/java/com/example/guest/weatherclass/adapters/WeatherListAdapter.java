@@ -6,10 +6,12 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guest.weatherclass.R;
 import com.example.guest.weatherclass.models.Weather;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,7 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         @Bind(R.id.pressureTextView) TextView mPressureTextView;
         @Bind(R.id.cloudsTextView) TextView mCloudsTextView;
         @Bind(R.id.visibilityTextView) TextView mVisibilityTextView;
+        @Bind(R.id.weatherImageView) ImageView mWeatherImageView;
 
         private Context mContext;
 
@@ -64,12 +67,13 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         public void bindWeather(Weather weather){
             mNameTextView.setText(weather.getName());
             mDescriptionTextView.setText(weather.getDescription());
-            mTempTextView.setText(weather.getTemperature());
-            mHumidityTextView.setText(weather.getHumidity());
-            mWindSpeedTextView.setText(weather.getWind());
-            mPressureTextView.setText(weather.getPressure());
-            mCloudsTextView.setText(weather.getCloud());
-            mVisibilityTextView.setText(weather.getVisibility());
+            mTempTextView.setText("Temperature: " + weather.getTemperature() + " Degrees F");
+            mHumidityTextView.setText("Humidity: " + weather.getHumidity() + "%");
+            mWindSpeedTextView.setText("Wind Speed: " + weather.getWind() + " MPH");
+            mPressureTextView.setText("Atmospheric Pressure: " + weather.getPressure() + "mb");
+            mCloudsTextView.setText("Cloud Cover: " + weather.getCloud() + "%");
+            mVisibilityTextView.setText("Visibility: " + weather.getVisibility() + " Miles");
+            Picasso.with(mContext).load(weather.getImageUrl()).into(mWeatherImageView);
         }
     }
 }
