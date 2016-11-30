@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mFindWeatherButton) {
             String location = mLocationEditText.getText().toString();
-            Log.v(TAG, location);
             Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
             intent.putExtra("location", location);
             startActivity(intent);

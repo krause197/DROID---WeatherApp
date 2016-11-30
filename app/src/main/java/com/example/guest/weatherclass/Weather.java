@@ -1,21 +1,21 @@
 package com.example.guest.weatherclass;
 
+import java.util.ArrayList;
+
 /**
  * Created by Guest on 11/29/16.
  */
 public class Weather {
     private String mName;
     private String mDescription;
-    private int mTemperature;
-    private int mHumidity;
-    private int mPressure;
-    private int mWind;
-    private int mCloud;
-    private int mVisibility;
-    private String mRain;
-    private String mSnow;
+    private String mTemperature;
+    private String mHumidity;
+    private String mPressure;
+    private String mWind;
+    private String mCloud;
+    private String mVisibility;
 
-    public Weather (String name, String description, int temperature, int humidity, int pressure, int wind, int cloud, int visibility, String rain, String snow){
+    public Weather (String name, String description, String temperature, String humidity, String pressure, String wind, String cloud, String visibility){
         this.mName = name;
         this.mDescription = description;
         this.mTemperature = temperature;
@@ -24,8 +24,6 @@ public class Weather {
         this.mWind = wind;
         this.mCloud = cloud;
         this.mVisibility = visibility;
-        this.mRain = rain;
-        this.mSnow = snow;
     }
 
     public String getName(){
@@ -34,28 +32,22 @@ public class Weather {
     public String getDescription(){
         return mDescription;
     }
-    public int getTemperature(){
+    public String getTemperature(){
         return mTemperature;
     }
-    public int getHumidity(){
+    public String getHumidity(){
         return mHumidity;
     }
-    public int getPressure(){
+    public String getPressure(){
         return mPressure;
     }
-    public int getWind(){
+    public String getWind(){
         return mWind;
     }
-    public int getCloud(){
+    public String getCloud(){
         return mCloud;
     }
-    public int getVisibility(){
+    public String getVisibility(){
         return mVisibility;
-    }
-    public String getRain(){
-        return mRain;
-    }
-    public String getSnow(){
-        return mSnow;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,8 +19,10 @@ import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = WeatherActivity.class.getSimpleName();
-    @Bind(R.id.locationTextView) TextView mLocationTextView;
-    @Bind(R.id.listView) ListView mListView;
+    @Bind(R.id.locationTextView)
+    TextView mLocationTextView;
+    @Bind(R.id.listView)
+    ListView mListView;
 
     public ArrayList<Weather> mWeathers = new ArrayList<>();
 
@@ -35,7 +38,7 @@ public class WeatherActivity extends AppCompatActivity {
         getWeather(location);
     }
 
-    private void getWeather (String location) {
+    private void getWeather(String location) {
         final WeatherService weatherService = new WeatherService();
         weatherService.findWeather(location, new Callback() {
 
@@ -46,11 +49,20 @@ public class WeatherActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 mWeathers = weatherService.processResults(response);
 
                 WeatherActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        String[] weatherNames = new String[mWeathers.size()];
+                        for (int i = 0; i < weatherNames.length; i++) {
+                            weatherNames[i] = mWeathers.get(i).getName();
+                        }
+                        ArrayAdapter adapter = new ArrayAdapter(WeatherActivity.this,
+                                android.R.layout.simple_list_item_1, weatherNames);
+                        mListView.setAdapter(adapter);
+
                         for (Weather weather : mWeathers) {
                             Log.d(TAG, "Name: " + weather.getName());
                             Log.d(TAG, "Description: " + weather.getDescription());
@@ -60,6 +72,5 @@ public class WeatherActivity extends AppCompatActivity {
             }
 
         });
-
     }
 }
