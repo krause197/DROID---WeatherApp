@@ -1,14 +1,14 @@
-package com.example.guest.weatherclass;
+package com.example.guest.weatherclass.services;
 
 import android.util.Log;
 
-import org.json.JSONArray;
+import com.example.guest.weatherclass.Constants;
+import com.example.guest.weatherclass.models.Weather;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 
 import okhttp3.Call;

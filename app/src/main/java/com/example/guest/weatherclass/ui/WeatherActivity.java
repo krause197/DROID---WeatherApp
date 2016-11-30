@@ -1,4 +1,4 @@
-package com.example.guest.weatherclass;
+package com.example.guest.weatherclass.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,10 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.guest.weatherclass.R;
+import com.example.guest.weatherclass.models.Weather;
+import com.example.guest.weatherclass.services.WeatherService;
 
 import java.io.IOException;
 import java.util.ArrayList;
