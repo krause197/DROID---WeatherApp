@@ -3,12 +3,15 @@ package com.example.guest.weatherclass.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.guest.weatherclass.R;
+import com.example.guest.weatherclass.adapters.WeatherListAdapter;
 import com.example.guest.weatherclass.models.Weather;
 import com.example.guest.weatherclass.services.WeatherService;
 
@@ -23,10 +26,9 @@ import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = WeatherActivity.class.getSimpleName();
-    @Bind(R.id.locationTextView)
-    TextView mLocationTextView;
-    @Bind(R.id.listView)
-    ListView mListView;
+
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private WeatherListAdapter mAdapter;
 
     public ArrayList<Weather> mWeathers = new ArrayList<>();
 
@@ -59,18 +61,11 @@ public class WeatherActivity extends AppCompatActivity {
                 WeatherActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String[] weatherNames = new String[mWeathers.size()];
-                        for (int i = 0; i < weatherNames.length; i++) {
-                            weatherNames[i] = mWeathers.get(i).getName();
-                        }
-                        ArrayAdapter adapter = new ArrayAdapter(WeatherActivity.this,
-                                android.R.layout.simple_list_item_1, weatherNames);
-                        mListView.setAdapter(adapter);
-
-                        for (Weather weather : mWeathers) {
-                            Log.d(TAG, "Name: " + weather.getName());
-                            Log.d(TAG, "Description: " + weather.getDescription());
-                        }
+                        mAdapter = new WeatherListAdapter(getApplicationContext(), mWeathers);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(WeatherActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
                 });
             }
