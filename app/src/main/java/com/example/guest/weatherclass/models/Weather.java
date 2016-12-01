@@ -16,6 +16,7 @@ public class Weather {
     private String mVisibility;
     private String mImageUrl;
 
+
     public Weather (String name, String description, String temperature, String humidity, String pressure, String wind, String cloud, String visibility, String imageUrl){
         this.mName = name;
         this.mDescription = description;
@@ -26,6 +27,7 @@ public class Weather {
         this.mCloud = cloud;
         this.mVisibility = visibility;
         this.mImageUrl = imageUrl;
+
     }
 
     public String getName(){
@@ -53,26 +55,5 @@ public class Weather {
         return mVisibility;
     }
     public String getImageUrl(){ return mImageUrl; }
-}
-
-public class Forcast {
-    private String mTempMax;
-    private String mTempMin;
-    private String mForcastDescript;
-    private String mForcastImageUrl;
-    private String mDate;
-
-    public Forcast (String tempMax, String tempMin, String forcastDescript, String forcastImageUrl, String date){
-        this.mTempMax = tempMax;
-        this.mTempMin = tempMin;
-        this.mForcastDescript = forcastDescript;
-        this.mForcastImageUrl = forcastImageUrl;
-        this.mDate = date;
-    }
-    public String getTempMax() { return mTempMax;}
-    public String getTempMin() { return mTempMin;}
-    public String getForcastDescript() { return mForcastDescript;}
-    public String getForcastImageUrl() { return mForcastImageUrl;}
-    public String getDate() { return mDate;}
 
 }

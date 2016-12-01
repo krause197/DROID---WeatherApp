@@ -27,7 +27,6 @@ import okhttp3.Response;
 public class WeatherService {
 
     public static final String TAG = WeatherService.class.getSimpleName();
-    private String mCityId = "";
 
     public static void findWeather(String location, Callback callback){
         OkHttpClient client = new OkHttpClient.Builder()
@@ -53,7 +52,7 @@ public class WeatherService {
 
         try {
             String jsonData = response.body().string();
-            Log.v(TAG, jsonData.toString());
+            Log.v(TAG, "Current Weather: "+ jsonData.toString());
             if (response.isSuccessful()){
                 JSONObject weathersJSON = new JSONObject(jsonData);
 
@@ -69,10 +68,6 @@ public class WeatherService {
                 int visibilityFeet = weathersJSON.getInt("visibility");
                 String visibility = visibilityFeet/5280 + "";
 
-                mCityId = weathersJSON.getString("id");
-
-                Log.v(TAG, visibilityFeet + "");
-
                 Weather weather = new Weather(name, description, temperature, humidity, pressure, wind, cloud, visibility, imageUrl);
                 weathers.add(weather);
             }
@@ -84,12 +79,12 @@ public class WeatherService {
         return weathers;
     }
 
-    public static void findForcast(String mCityId, Callback callback){
+    public static void findForcast(String location, Callback callback){
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.API_BASE_FORCAST_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.FORCAST_QUERY_PARAMETER, mCityId);
+        urlBuilder.addQueryParameter(Constants.FORCAST_QUERY_PARAMETER, location);
         urlBuilder.addQueryParameter(Constants.API_KEY_DAILY_PARAMETER, "7");
         urlBuilder.addQueryParameter(Constants.API_KEY_QUERY_PARAMETER, Constants.Weather_Token_Key);
         urlBuilder.addQueryParameter(Constants.API_KEY_UNITS_PARAMETER, "imperial");
@@ -108,7 +103,7 @@ public class WeatherService {
 
         try {
             String jsonData = response.body().string();
-            Log.v(TAG, jsonData.toString());
+            Log.v(TAG, "7daysForcast: "+ jsonData);
             if (response.isSuccessful()){
                 JSONObject forcastsJSON = new JSONObject(jsonData);
                 JSONArray listJSON = forcastsJSON.getJSONArray("list");
@@ -121,14 +116,9 @@ public class WeatherService {
                     String forcastImageUrl = "http://openweathermap.org/img/w/" + forcastIcon + ".png";
                     String date = dayJSON.getString("dt") + "";
 
-
                     Forcast forcast = new Forcast(tempMax, tempMin, forcastDescript, forcastImageUrl, date);
                     forcasts.add(forcast);
                 }
-
-                Log.v(TAG, visibilityFeet + "");
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();

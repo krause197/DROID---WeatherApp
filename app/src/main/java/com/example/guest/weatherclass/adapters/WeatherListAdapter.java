@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guest.weatherclass.R;
+import com.example.guest.weatherclass.models.Forcast;
 import com.example.guest.weatherclass.models.Weather;
 import com.squareup.picasso.Picasso;
 
@@ -23,11 +24,13 @@ import butterknife.ButterKnife;
  */
 public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>  {
     private ArrayList<Weather> mWeathers = new ArrayList<>();
+
     private Context mContext;
 
     public WeatherListAdapter(Context context, ArrayList<Weather> weathers) {
         mContext = context;
         mWeathers = weathers;
+
     }
 
     @Override
@@ -45,6 +48,10 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         return mWeathers.size();
     }
 
+
+//    @Override
+//    public int get
+
     public class WeatherViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.nameTextView) TextView mNameTextView;
         @Bind(R.id.descriptionTextView) TextView mDescriptionTextView;
@@ -55,6 +62,7 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         @Bind(R.id.cloudsTextView) TextView mCloudsTextView;
         @Bind(R.id.visibilityTextView) TextView mVisibilityTextView;
         @Bind(R.id.weatherImageView) ImageView mWeatherImageView;
+
 
         private Context mContext;
 
@@ -74,6 +82,8 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
             mCloudsTextView.setText("Cloud Cover: " + weather.getCloud() + "%");
             mVisibilityTextView.setText("Visibility: " + weather.getVisibility() + " Miles");
             Picasso.with(mContext).load(weather.getImageUrl()).into(mWeatherImageView);
+
         }
+
     }
 }
